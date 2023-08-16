@@ -4,5 +4,35 @@
 #It can be verified that T285 = P165 = H143 = 40755.
 #Find the next triangle number that is also pentagonal and hexagonal.
 
-for n in range(286, 1000):
-    t =
+def computeT(i):
+    return i * (i+1) / 2
+
+def computeP(i):
+    return i * (3 * i - 1) / 2
+
+def computeH(i):
+    return i * (2 * i - 1)
+
+t = computeT(286)
+ti = 286
+p = computeP(166)
+pi = 166
+h = computeH(144)
+hi = 144
+
+idx = 0
+while(not (t == p == h)):
+    if (t <= p and t <= h):
+        ti += 1
+        t = computeT(ti)
+    elif (p <= t and p <= h):
+        pi += 1
+        p = computeP(pi)
+    else:
+        hi += 1
+        h = computeH(hi)
+    idx += 1
+    if idx == 1000000:
+        break
+
+print(t, p, h)
