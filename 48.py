@@ -4,7 +4,8 @@
 
 import unittest
 
-TRUNC = 10**10
+DIGITS = 10
+TRUNC = 10 ** DIGITS
 
 def sumLastDigits(x, y):
     x %= TRUNC
@@ -15,9 +16,14 @@ def multLastDigits(x, y):
     x %= TRUNC
     y %= TRUNC
     ans = 0
-    #TODO
-    return 0
+    i = 0
+    for d in reversed(str(y)):
+        tmp = (x % (10 ** (DIGITS-i))) * int(d)
+        ans += (tmp * (10 ** i))
+        i += 1
+    return ans % TRUNC
 
+# assuming n >= 1
 def powLastDigits(x, n):
     if n == 1:
         return x % TRUNC
@@ -27,9 +33,9 @@ def powLastDigits(x, n):
         ans = multLastDigits(ans, x)
     return ans % TRUNC
 
-def foo():
+def foo(end):
     ans = 0
-    for i in range(1, 1001):
+    for i in range(1, end+1):
         cur = powLastDigits(i, i)
         ans = sumLastDigits(ans, cur)
     return ans
@@ -45,13 +51,23 @@ class TestSum(unittest.TestCase):
         self.assertEqual(sumLastDigits(19834756293, 97465928374), 7300684667)
 
 class TestMult(unittest.TestCase):
-    #TODO
     def test(self):
-        self.assertEqual(0,0)
+        self.assertEqual(multLastDigits(3, 5), 15)
+        self.assertEqual(multLastDigits(17, 99), 1683)
+        self.assertEqual(multLastDigits(100000, 1000000), 0)
+        self.assertEqual(multLastDigits(357, 1029340475), 7474549575)
 
 class TestPow(unittest.TestCase):
-    #TODO
     def test(self):
-        self.assertEqual(0,0)
+        self.assertEqual(powLastDigits(2, 5), 32)
+        self.assertEqual(powLastDigits(17, 5), 1419857)
+        self.assertEqual(powLastDigits(19, 9), 2687697779)
+        self.assertEqual(powLastDigits(11, 12), 8428376721)
 
-unittest.main()
+class TestFinal(unittest.TestCase):
+    def test(self):
+        self.assertEqual(foo(10), 405071317)
+
+#unittest.main()
+
+print(foo(1000))
