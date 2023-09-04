@@ -13,22 +13,18 @@ def numDistinctPrimeFactors(x):
             factor += 1
     return len(pf)
 
-#The last three consecutive numbers to have three distinct prime factors are 644, 645, 646
-def findFirstFour():
+# find the first m consecutive numbers to have d distinct prime factors
+# tests numbers up to limit
+def find(m, d, limit):
     count = 0
-    curNum = 647
-    limit = 30000
-    while (count < 4 and curNum < limit):
-        if numDistinctPrimeFactors(curNum) == 4:
+    curNum = 0
+    while (count < m and curNum < limit):
+        if numDistinctPrimeFactors(curNum) == d:
             count += 1
-            curNum += 1
         else:
             count = 0
-            curNum += 3
-    ans = curNum
-    return [x for x in range(ans-3, ans+1)]
-
-print(findFirstFour())
+        curNum += 1
+    return curNum - 1
 
 class TestDistinctPrimeFactors(unittest.TestCase):
     def testOneFactor(self):
@@ -48,5 +44,12 @@ class TestDistinctPrimeFactors(unittest.TestCase):
         self.assertEqual(numDistinctPrimeFactors(210), 4)
         self.assertEqual(numDistinctPrimeFactors(420), 4)
         self.assertEqual(numDistinctPrimeFactors(5700), 4)
+
+class TestFind(unittest.TestCase):
+    def testTwoConsecTwoFactors(self):
+        self.assertEqual(find(2, 2, 100), 15)
     
-#unittest.main()
+    def testThreeConsecThreeFactors(self):
+        self.assertEqual(find(3, 3, 1000), 646)
+    
+unittest.main()
