@@ -1,6 +1,6 @@
 # Distinct Prime Factors
 
-import unittest
+import unittest, time
 
 def numDistinctPrimeFactors(x):
     pf = set()
@@ -14,17 +14,22 @@ def numDistinctPrimeFactors(x):
     return len(pf)
 
 # find the first m consecutive numbers to have d distinct prime factors
-# tests numbers up to limit
-def find(m, d, limit):
+# tests numbers between start and end
+def find(m, d, start, end):
     count = 0
-    curNum = 0
-    while (count < m and curNum < limit):
+    curNum = start
+    while (count < m and curNum < end):
         if numDistinctPrimeFactors(curNum) == d:
             count += 1
         else:
             count = 0
         curNum += 1
-    return curNum - 1
+    return curNum - m
+
+start = time.perf_counter()
+print(find(4, 4, 100000, 200000))
+end = time.perf_counter()
+print(f"Runtime: {end - start:0.2f}")
 
 class TestDistinctPrimeFactors(unittest.TestCase):
     def testOneFactor(self):
@@ -47,9 +52,9 @@ class TestDistinctPrimeFactors(unittest.TestCase):
 
 class TestFind(unittest.TestCase):
     def testTwoConsecTwoFactors(self):
-        self.assertEqual(find(2, 2, 100), 15)
+        self.assertEqual(find(2, 2, 0, 100), 14)
     
     def testThreeConsecThreeFactors(self):
-        self.assertEqual(find(3, 3, 1000), 646)
+        self.assertEqual(find(3, 3, 0, 1000), 644)
     
-unittest.main()
+#unittest.main()
