@@ -10,3 +10,14 @@ def is_prime(x: int) -> bool:
             return False
     return True
 
+def permutation(arr):
+    if len(arr) < 2:
+        return [arr]
+    res = []
+    for i in range(len(arr)):
+       m = arr[i]
+       remLst = arr[:i] + arr[i+1:]
+       # Generating all permutations where m is first element
+       for p in permutation(remLst):
+           res.append([m] + p)
+    return res
