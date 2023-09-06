@@ -10,7 +10,7 @@
 
 import math
 
-with open("C:/Users/xujer/OneDrive/Coding practice/Project Euler/p042_words.txt", "r") as f:
+with open("0042_words.txt", "r") as f:
     contents = f.read()
     clean = contents.replace('"', '')
     names = clean.split(",")

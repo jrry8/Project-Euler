@@ -1,5 +1,5 @@
 #parse text file into array
-with open(r"C:\Users\xujer\OneDrive\Coding practice\Project Euler\p022_names.txt", "r") as f:
+with open(r"0022_names.txt", "r") as f:
     contents = f.read()
     clean = contents.replace('"', '')
     names = clean.split(",")
